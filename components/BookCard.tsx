@@ -36,7 +36,7 @@ const BookCard = ({
               <p className="text-light-100">11 days left to return</p>
             </div>
             <Button className="book-btn">
-                Download
+                Download receipt
             </Button>
           </div>
         )}
