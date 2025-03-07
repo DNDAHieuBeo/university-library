@@ -14,7 +14,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -43,7 +42,7 @@ const AuthForm = <T extends FieldValues>({
     resolver: zodResolver(schema),
     defaultValues: defaultValues as DefaultValues<T>,
   });
-  console.log(defaultValues)
+
   const handleSubmit: SubmitHandler<T> = async (data) => {};
 
   return (
@@ -59,7 +58,7 @@ const AuthForm = <T extends FieldValues>({
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSubmit)}
-          className="space-y-6 w-full"
+          className="w-full space-y-6"
         >
           {Object.keys(defaultValues).map((field) => (
             <FormField
@@ -73,7 +72,7 @@ const AuthForm = <T extends FieldValues>({
                   </FormLabel>
                   <FormControl>
                     {field.name === "universityCard" ? (
-                      <ImageUpload />
+                      <ImageUpload onFileChange={field.onChange} />
                     ) : (
                       <Input
                         required
@@ -90,7 +89,10 @@ const AuthForm = <T extends FieldValues>({
               )}
             />
           ))}
-          <Button type="submit" className="form-btn"> {isSignIn ? "Sign In" : "Sign Up"}</Button>
+          <Button type="submit" className="form-btn">
+            {" "}
+            {isSignIn ? "Sign In" : "Sign Up"}
+          </Button>
         </form>
       </Form>
       <p className="text-center text-base font-medium">

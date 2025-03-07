@@ -8,7 +8,6 @@ interface Props {
 }
 
 const BookList = ({ title, books, containerClassName }: Props) => {
-  console.log(books)
 
   return (
     <section className={containerClassName}>
