@@ -1,7 +1,11 @@
 import BookList from "@/components/BookList";
 import BookOverview from "@/components/BookOverview";
 import { sampleBooks } from "@/constants";
-export default function Home() {
+import { db } from "@/database/db";
+import { users } from "@/database/schema";
+const Home = async () => {
+  const result = await db.select().from(users);
+  console.log(JSON.stringify(result, null, 2));
   return (
     <>
       <BookOverview {...sampleBooks[0]} />
@@ -12,4 +16,4 @@ export default function Home() {
       />
     </>
   );
-}
+};
