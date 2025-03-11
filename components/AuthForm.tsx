@@ -48,20 +48,22 @@ const AuthForm = <T extends FieldValues>({
 
   const handleSubmit: SubmitHandler<T> = async (data) => {
     const result = await onSubmit(data);
+    
     if (result.success) {
-      
       toast("Success", {
         description: isSignIn
-          ? "You have successfully sign in"
-          : "You have successfully sign up",
+          ? "You have successfully signed in"
+          : "You have successfully signed up",
+        className: "bg-green-500 text-white border border-green-700",
       });
       router.push("/");
     } else {
       toast(`Error: ${isSignIn ? "signing in" : "signing up"}`, {
         description: result.error ?? "An error occurred.",
+        className: "bg-red-500 text-white border border-red-700",
       });
     }
-  };
+};
 
   return (
     <div className="flex flex-col gap-4">
