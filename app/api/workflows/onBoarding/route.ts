@@ -1,5 +1,7 @@
 import { serve } from "@upstash/workflow/nextjs";
 
+export const runtime = "nodejs";
+
 type InitialData = {
   email: string;
 };
@@ -43,3 +45,4 @@ const getUserState = async (): Promise<UserState> => {
   // Implement user state logic here
   return "non-active";
 };
+// Chuyển sang Node.js Runtime

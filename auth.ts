@@ -1,12 +1,12 @@
 import NextAuth, { User } from "next-auth";
-import { compare } from "bcryptjs";
+import bcrypt from "bcrypt";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { db } from "@/database/db";
 import { users } from "@/database/schema";
 import { eq } from "drizzle-orm";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  
+
   session: {
     strategy: "jwt",
   },
@@ -25,7 +25,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         if (user.length === 0) return null;
 
-        const isPasswordValid = await compare(
+        const isPasswordValid = await bcrypt.compare(
           credentials.password.toString(),
           user[0].password,
         );

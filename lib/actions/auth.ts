@@ -3,14 +3,14 @@
 import { db } from "@/database/db";
 import { users } from "@/database/schema";
 import { eq } from "drizzle-orm";
-import { hash } from "bcrypt";
+import bcrypt from "bcrypt";
 import { headers } from "next/headers";
 import { signIn } from "@/auth";
 import ratelimit from "../ratelimit";
 import { redirect } from "next/navigation";
 
 export const signInWithCredentials = async (
-  params: Pick<AuthCredentials, "email" | "password">
+  params: Pick<AuthCredentials, "email" | "password">,
 ) => {
   const { email, password } = params;
 
@@ -56,7 +56,7 @@ export const signUp = async (param: AuthCredentials) => {
 
   //Create the user
 
-  const hashedPassword = await hash(password, 10);
+  const hashedPassword = await bcrypt.hash(password, 10);
   try {
     {
       await db.insert(users).values({
