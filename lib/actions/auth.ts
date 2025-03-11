@@ -3,7 +3,7 @@
 import { db } from "@/database/db";
 import { users } from "@/database/schema";
 import { eq } from "drizzle-orm";
-import { hash } from "bcryptjs";
+import { hash } from "bcrypt";
 import { headers } from "next/headers";
 import { signIn } from "@/auth";
 import ratelimit from "../ratelimit";
