@@ -1,11 +1,9 @@
-
-'use server'
 import NextAuth, { User } from "next-auth";
-import { compare } from "bcryptjs";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { db } from "@/database/db";
 import { users } from "@/database/schema";
 import { eq } from "drizzle-orm";
+import { comparePassword } from "@/lib/util/hash"; // Import hàm compare
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   session: {
@@ -26,10 +24,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         if (user.length === 0) return null;
 
-        const isPasswordValid = await compare(
+        const isPasswordValid = await comparePassword(
           credentials.password.toString(),
           user[0].password,
-        );
+        ); // Sử dụng hàm mới
 
         if (!isPasswordValid) return null;
 
@@ -50,7 +48,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.id = user.id;
         token.name = user.name;
       }
-
       return token;
     },
     async session({ session, token }) {
@@ -58,7 +55,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.id = token.id as string;
         session.user.name = token.name as string;
       }
-
       return session;
     },
   },
