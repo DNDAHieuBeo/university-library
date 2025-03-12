@@ -25,7 +25,7 @@ export async function GET() {
 
     return NextResponse.json(authParams);
   } catch (error) {
-    console.error("Error generating authentication parameters:", error);
+    
     return NextResponse.json(
       { message: "Failed to generate authentication parameters" },
       { status: 500 }

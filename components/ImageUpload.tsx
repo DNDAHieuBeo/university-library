@@ -42,7 +42,7 @@ const ImageUpload = ({
   const ikUpLoadRef = useRef(null);
   const [file, setFile] = useState<{ filePath: string } | null>(null);
   const onError = (error: any) => {
-    console.log(error);
+ 
     toast("Image upload failed", {
       description: `Your image could not be uploaded. Please try again later`,
     });
