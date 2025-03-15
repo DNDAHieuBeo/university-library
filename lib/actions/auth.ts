@@ -3,13 +3,13 @@
 import { eq } from "drizzle-orm";
 import { db } from "@/database/db";
 import { users } from "@/database/schema";
+import { hash } from "bcryptjs";
 import { signIn } from "@/auth";
 import { headers } from "next/headers";
 import ratelimit from "@/lib/ratelimit";
 import { redirect } from "next/navigation";
 import { workflowClient } from "@/lib/workflow";
 import config from "@/lib/config";
-import { hashPassword } from "@/lib/util/hash";
 
 export const signInWithCredentials = async (
   params: Pick<AuthCredentials, "email" | "password">,
@@ -34,7 +34,7 @@ export const signInWithCredentials = async (
 
     return { success: true };
   } catch (error) {
-   
+    console.log(error, "Signin error");
     return { success: false, error: "Signin error" };
   }
 };
@@ -57,8 +57,7 @@ export const signUp = async (params: AuthCredentials) => {
     return { success: false, error: "User already exists" };
   }
 
-
-  const hashedPassword = await hashPassword(password);
+  const hashedPassword = await hash(password, 10);
 
   try {
     await db.insert(users).values({
@@ -81,7 +80,7 @@ export const signUp = async (params: AuthCredentials) => {
 
     return { success: true };
   } catch (error) {
-   
+    console.log(error, "Signup error");
     return { success: false, error: "Signup error" };
   }
 };
