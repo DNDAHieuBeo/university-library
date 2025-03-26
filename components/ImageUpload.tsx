@@ -46,6 +46,7 @@ const ImageUpload = ({
     toast("Image upload failed", {
       description: `Your image could not be uploaded. Please try again later`,
     });
+    console.log(error)
   };
   const onSuccess = (res: any) => {
     setFile(res);
